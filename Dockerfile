@@ -1,5 +1,5 @@
-FROM ubuntu:18.04
-MAINTAINER Stephen Olesen <slepp@slepp.ca>
+FROM debian:stretch
+MAINTAINER Gump Yang <yangchengwork@gmail.com>
 
 RUN apt-get update \
 	&& apt-get install -y \
