@@ -3,10 +3,12 @@ MAINTAINER Gump Yang <yangchengwork@gmail.com>
 
 RUN apt-get update \
 	&& apt-get install -y \
+		apt-utils \
 		wget \
+		unzip \
 		openjdk-8-jre \
 		xvfb \
-                xz-utils \
+        xz-utils \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
@@ -16,14 +18,8 @@ RUN (wget -q -O- https://downloads.arduino.cc/arduino-${ARDUINO_IDE_VERSION}-lin
 	&& ln -s /usr/local/share/arduino-${ARDUINO_IDE_VERSION} /usr/local/share/arduino \
 	&& ln -s /usr/local/share/arduino-${ARDUINO_IDE_VERSION}/arduino /usr/local/bin/arduino)
 
-RUN (wget https://codeload.github.com/rogerclarkmelbourne/Arduino_STM32/zip/master)
-
-COPY ./start-xvfb.sh /usr/local/bin/start-xvfb
-
-ENV DISPLAY :1.0
-
-COPY ./start-session.sh /usr/local/bin/start-session
+RUN (wget https://codeload.github.com/rogerclarkmelbourne/Arduino_STM32/zip/master \
+	&& unzip master.zip \
+	&& mv Arduino_STM32-master /usr/local/share/arduino/hardware/Arduino_STM32)
 
 CMD ["/bin/bash"]
-
-ENTRYPOINT ["/usr/local/bin/start-session"]
