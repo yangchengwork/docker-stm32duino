@@ -18,8 +18,9 @@ RUN (wget -q -O- https://downloads.arduino.cc/arduino-${ARDUINO_IDE_VERSION}-lin
 	&& ln -s /usr/local/share/arduino-${ARDUINO_IDE_VERSION} /usr/local/share/arduino \
 	&& ln -s /usr/local/share/arduino-${ARDUINO_IDE_VERSION}/arduino /usr/local/bin/arduino)
 
-RUN (wget https://codeload.github.com/rogerclarkmelbourne/Arduino_STM32/zip/master \
-	&& unzip master.zip \
-	&& mv Arduino_STM32-master /usr/local/share/arduino/hardware/Arduino_STM32)
+RUN (wget -q https://codeload.github.com/rogerclarkmelbourne/Arduino_STM32/zip/master -O /tmp/master.zip \
+	&& unzip -q /tmp/master.zip -d /usr/local/share/arduino/hardware/\
+	&& mv /usr/local/share/arduino/hardware/Arduino_STM32-master /usr/local/share/arduino/hardware/Arduino_STM32 \
+	&& rm /tmp/master.zip)
 
 CMD ["/bin/bash"]
